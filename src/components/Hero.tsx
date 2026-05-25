@@ -89,7 +89,7 @@ function Hero() {
             {/* Quote card */}
             <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/60 shadow-sm max-w-lg backdrop-blur-sm">
               <span className="text-base md:text-lg font-medium text-[#008A4B] italic leading-snug">
-                \u201cYa no hace falta tener todo pa&apos; tenerlo todo 😉\u201d
+                “Ya no hace falta tener todo pa' tenerlo todo 😉”
               </span>
             </div>
 
@@ -156,23 +156,16 @@ function Hero() {
                 />
 
                 {/* Capa Superior: GIF Animado (Imán Visual) */}
-                {/* Ajuste definitivo: subido un poco para mostrar “descuento” y “ayuda” sin exponer el borde superior */}
+                {/* Ajustado para dispositivos móviles, baja un poco en pantallas pequeñas */}
                 <img
                   src={BannerPlanPlus}
                   alt="Banner Animado Plan Plus"
-                  className="absolute z-10 shadow-sm"
+                  className="absolute z-10 shadow-sm top-[58%] sm:top-[55%] left-[4.8%] w-[90.4%] max-w-[92%] h-auto rounded-[12px]"
                   width={816}
                   height={238}
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
-                  style={{
-                    top: '55%',
-                    left: '4.8%',
-                    width: '90.4%',
-                    height: 'auto',
-                    borderRadius: '12px',
-                  }}
                 />
               </div>
 

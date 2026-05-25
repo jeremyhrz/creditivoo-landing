@@ -118,7 +118,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
           </div>
 
           {/* PLAN PLUS (Imán de Conversión) */}
-          <div className="rounded-[2rem] bg-white border-2 border-[#00E37C]/40 p-8 sm:p-10 flex flex-col justify-between hover:-translate-y-2 shadow-[0_30px_60px_-15px_rgba(0,227,124,0.15)] transition-all duration-300 relative lg:-mt-6 lg:mb-[-1.5rem] z-10 overflow-hidden group">
+          <div className="rounded-[2rem] bg-white border-2 border-[#00E37C]/40 p-8 sm:p-10 flex flex-col justify-between hover:-translate-y-2 shadow-[0_30px_60px_-15px_rgba(0,227,124,0.15)] transition-all duration-300 relative lg:-mt-6 lg:mb-[-1.5rem] z-10 overflow-visible group">
             
             {/* Interior Glow Effect */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#00E37C]/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00E37C]/10 transition-colors duration-500" />

@@ -14,8 +14,9 @@ const PRESETS = [
   { name: 'Smart TV Síragon 50"', price: 349, category: 'Televisor' },
   { name: 'Xiaomi Redmi Note 13', price: 189, category: 'Teléfono' },
   { name: 'Aire Split 12000 BTU', price: 299, category: 'Electrodoméstico' },
-  { name: 'Laptop ASUS VivoBook', price: 549, category: 'Computación' },
-  { name: 'Nevera Condesa 10' , price: 429, category: 'Línea Blanca' },
+  { name: 'Mini UPS Nuwe 10000mAh NW-32UE', price: 549, category: 'Computación' },
+  { name: 'Nevera Síragon NV-3100 248L / 9Cu.FT', price: 429, category: 'Línea Blanca' },
+  { name: 'Otros productos', price: 0, category: 'Otros' },
 ];
 
 function Simulator({ onSimulateSelect }: SimulatorProps) {
@@ -35,10 +36,13 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
   }, [calculateInitialPayment]);
 
   const handlePresetClick = useCallback((idx: number) => {
-    setSelectedPreset(idx);
     const preset = PRESETS[idx];
-    setProductPrice(preset.price);
+    setSelectedPreset(idx);
     setProductName(preset.name);
+
+    if (preset.name !== 'Otros productos') {
+      setProductPrice(preset.price);
+    }
   }, []);
 
   const handlePriceChange = useCallback((val: number) => {

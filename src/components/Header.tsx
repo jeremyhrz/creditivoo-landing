@@ -23,7 +23,6 @@ const menuItems: NavItem[] = [
   { name: 'Qué es', view: 'que-es' },
   { name: 'Cómo funciona', view: 'como-funciona' },
   { name: 'Planes', view: 'planes' },
-  { name: 'Simulador', view: 'simulador' },
   { name: 'Beneficios', view: 'beneficios' },
   { name: 'Requisitos', view: 'requisitos' },
   { name: 'Preguntas', view: 'preguntas' },

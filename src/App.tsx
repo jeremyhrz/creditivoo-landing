@@ -22,7 +22,6 @@ export type AppView =
   | 'que-es'
   | 'como-funciona'
   | 'planes'
-  | 'simulador'
   | 'beneficios'
   | 'requisitos'
   | 'preguntas'
@@ -65,7 +64,6 @@ export default function App() {
       'que-es': <About />,
       'como-funciona': <HowItWorks />,
       planes: <Planes onPlanSelect={(plan) => handleSimulateSelect(undefined, plan, undefined)} />,
-      simulador: <Simulator onSimulateSelect={handleSimulateSelect} />,
       beneficios: <Benefits />,
       requisitos: <Requirements />,
       preguntas: <FAQ />,
