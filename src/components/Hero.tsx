@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useCallback, memo } from 'react';
 import {
   ArrowRight,
   Calculator,
@@ -21,15 +21,12 @@ import {
   Scan,
   MoreHorizontal
 } from 'lucide-react';
-import Logo from './Logo';
 
 import MockupPantallaApp from '../assets/mockup-pantalla-app.png';
 import BannerPlanPlus from '../assets/banner-plan-plus.gif';
 
-export default function Hero() {
-  const [showBalance, setShowBalance] = useState(true);
-
-  const handleScrollTo = (id: string) => {
+function Hero() {
+  const handleScrollTo = useCallback((id: string) => {
     const element = document.querySelector(id);
     if (element) {
       const offset = 80;
@@ -43,7 +40,7 @@ export default function Hero() {
         behavior: 'smooth'
       });
     }
-  };
+  }, []);
 
   return (
     <section
@@ -54,10 +51,10 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.012)_1.5px,transparent_1.5px),linear-gradient(90deg,rgba(0,0,0,0.012)_1.5px,transparent_1.5px)] bg-[size:32px_32px] pointer-events-none opacity-80" />
 
       {/* Glow de Fondo Profundo — esquina superior derecha */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00E37C]/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[clamp(320px,45vw,600px)] h-[clamp(320px,45vw,600px)] bg-[#00E37C]/10 rounded-full blur-3xl -z-10 pointer-events-none" />
 
       {/* Secondary subtle glow — bottom-left para equilibrio */}
-      <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-slate-200/40 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-32 -left-32 w-[clamp(260px,35vw,400px)] h-[clamp(260px,35vw,400px)] bg-slate-200/40 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full font-sans">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-center">
@@ -74,7 +71,7 @@ export default function Hero() {
             </span>
 
             {/* Tipografía de Silicon Valley */}
-            <h1 className="font-extrabold text-slate-900 tracking-tight text-4xl md:text-6xl lg:text-7xl leading-none">
+            <h1 className="font-extrabold text-slate-900 tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
               Creditivoo
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E37C] to-emerald-700">
@@ -113,7 +110,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4 pt-1">
               <button
                 onClick={() => handleScrollTo('#solicitud')}
-                className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-base px-8 py-4 shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer"
+                className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-base sm:px-8 px-5 py-4 min-h-[44px] shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 ease-in-out flex items-center justify-center gap-2.5 cursor-pointer"
                 id="hero-primary-cta"
               >
                 Solicitar ahora
@@ -122,7 +119,7 @@ export default function Hero() {
 
               <button
                 onClick={() => handleScrollTo('#simulador')}
-                className="rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base px-8 py-4 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer"
+                className="rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base sm:px-8 px-5 py-4 min-h-[44px] border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-300 ease-in-out flex items-center justify-center gap-2.5 cursor-pointer"
                 id="hero-secondary-cta"
               >
                 <Calculator className="w-5 h-5 text-[#00AA5B]" />
@@ -151,20 +148,30 @@ export default function Hero() {
                   src={MockupPantallaApp}
                   alt="Creditivoo App Mockup"
                   className="w-full h-full object-cover"
+                  width={900}
+                  height={1950}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                 />
 
                 {/* Capa Superior: GIF Animado (Imán Visual) */}
                 {/* Ajuste definitivo: subido un poco para mostrar “descuento” y “ayuda” sin exponer el borde superior */}
-                <img 
-                  src={BannerPlanPlus} 
-                  alt="Banner Animado Plan Plus" 
+                <img
+                  src={BannerPlanPlus}
+                  alt="Banner Animado Plan Plus"
                   className="absolute z-10 shadow-sm"
+                  width={816}
+                  height={238}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   style={{
-                    top: '55%',   // Subido un poco para mejorar el encuadre
-                    left: '4.8%',   // Movido a la izquierda para cubrir el borde izquierdo
-                    width: '90.4%', // Ancho expandido milimétricamente para cubrir los lados
+                    top: '55%',
+                    left: '4.8%',
+                    width: '90.4%',
                     height: 'auto',
-                    borderRadius: '12px'
+                    borderRadius: '12px',
                   }}
                 />
               </div>
@@ -178,3 +185,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default memo(Hero);

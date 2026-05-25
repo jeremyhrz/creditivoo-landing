@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,13 +11,22 @@ import HowItWorks from './components/HowItWorks';
 import Planes from './components/Planes';
 import Simulator from './components/Simulator';
 import Benefits from './components/Benefits';
-import IvooPoints from './components/IvooPoints';
 import Requirements from './components/Requirements';
-import Ecosystem from './components/Ecosystem';
 import FAQ from './components/FAQ';
 import Security from './components/Security';
 import ApplicationForm from './components/ApplicationForm';
 import Footer from './components/Footer';
+
+export type AppView =
+  | 'inicio'
+  | 'que-es'
+  | 'como-funciona'
+  | 'planes'
+  | 'simulador'
+  | 'beneficios'
+  | 'requisitos'
+  | 'preguntas'
+  | 'solicitud';
 
 export default function App() {
   // Sync state between Simulator, Planes and ApplicationForm
@@ -27,55 +36,54 @@ export default function App() {
     productName?: string;
   } | null>(null);
 
-  const handleSimulateSelect = (price: number | undefined, plan: 'basic' | 'plus', productName: string | undefined) => {
-    setSimulatorPrefill({ price, plan, productName });
-  };
+  const [currentView, setCurrentView] = useState<AppView>('inicio');
+
+  const handleSimulateSelect = useCallback(
+    (
+      price: number | undefined,
+      plan: 'basic' | 'plus',
+      productName: string | undefined,
+    ) => {
+      setSimulatorPrefill({ price, plan, productName });
+    },
+    [],
+  );
+
+  const handleViewChange = useCallback((view: AppView) => {
+    setCurrentView(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const viewMap = useMemo(
+    () => ({
+      inicio: (
+        <>
+          <Hero />
+          <Simulator onSimulateSelect={handleSimulateSelect} />
+        </>
+      ),
+      'que-es': <About />,
+      'como-funciona': <HowItWorks />,
+      planes: <Planes onPlanSelect={(plan) => handleSimulateSelect(undefined, plan, undefined)} />,
+      simulador: <Simulator onSimulateSelect={handleSimulateSelect} />,
+      beneficios: <Benefits />,
+      requisitos: <Requirements />,
+      preguntas: <FAQ />,
+      solicitud: <ApplicationForm prefillValues={simulatorPrefill} />,
+    }),
+    [handleSimulateSelect, simulatorPrefill],
+  );
 
   return (
-    <div className="bg-white min-h-screen text-slate-800 selection:bg-[#00E37C]/30 selection:text-[#00FF88] antialiased">
-      {/* 1. Header Navigation */}
-      <Header />
+    <div className="bg-white min-h-screen text-slate-800 selection:bg-[#00E37C]/30 selection:text-[#00FF88] antialiased overflow-x-hidden">
+      <Header currentView={currentView} onViewChange={handleViewChange} />
 
-      {/* Main Container Sections */}
       <main className="relative">
-        {/* 2. Hero Section */}
-        <Hero />
-
-        {/* 3. What is Creditivoo Segment */}
-        <About />
-
-        {/* 4. Timeline How It Works */}
-        <HowItWorks />
-
-        {/* 5. Comparatives plans */}
-        <Planes onPlanSelect={(plan) => handleSimulateSelect(undefined, plan, undefined)} />
-
-        {/* 6. Interactive Simulator Calculator */}
-        <Simulator onSimulateSelect={handleSimulateSelect} />
-
-        {/* 7. Bento grid of benefits */}
-        <Benefits />
-
-        {/* 8. Behavior credit metric / IVOOPoints info */}
-        <IvooPoints />
-
-        {/* 9. Requirements to apply */}
-        <Requirements />
-
-        {/* 10. Channel ecosystem of IVOO stores */}
-        <Ecosystem />
-
-        {/* 11. Custom FAQ Accordion Stack */}
-        <FAQ />
-
-        {/* 12. Security advisory alerts */}
-        <Security />
-
-        {/* 13. High-fidelity Application Evaluation Form */}
-        <ApplicationForm prefillValues={simulatorPrefill} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          {viewMap[currentView]}
+        </section>
       </main>
 
-      {/* 14. Footer branding and legal warnings */}
       <Footer />
     </div>
   );

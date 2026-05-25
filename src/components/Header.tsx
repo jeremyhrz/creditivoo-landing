@@ -3,13 +3,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import logoPrincipal from '../assets/logo-principal.png';
+import type { AppView } from '../App';
 
-export default function Header() {
+type NavItem = {
+  name: string;
+  view: AppView;
+};
+
+type HeaderProps = {
+  currentView: AppView;
+  onViewChange: (view: AppView) => void;
+};
+
+const menuItems: NavItem[] = [
+  { name: 'Inicio', view: 'inicio' },
+  { name: 'Qué es', view: 'que-es' },
+  { name: 'Cómo funciona', view: 'como-funciona' },
+  { name: 'Planes', view: 'planes' },
+  { name: 'Simulador', view: 'simulador' },
+  { name: 'Beneficios', view: 'beneficios' },
+  { name: 'Requisitos', view: 'requisitos' },
+  { name: 'Preguntas', view: 'preguntas' },
+];
+
+function Header({ currentView, onViewChange }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Monitor scroll height to make standard frosted-glass sticky header
   useEffect(() => {
@@ -20,33 +44,26 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Qué es', href: '#que-es' },
-    { name: 'Cómo funciona', href: '#como-funciona' },
-    { name: 'Planes', href: '#planes' },
-    { name: 'Simulador', href: '#simulador' },
-    { name: 'Beneficios', href: '#beneficios' },
-    { name: 'Requisitos', href: '#requisitos' },
-    { name: 'Preguntas', href: '#preguntas' },
-  ];
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, []);
 
-  const handleScrollTo = (id: string) => {
+  const handleNavigation = useCallback((view: AppView) => {
     setIsOpen(false);
-    const element = document.querySelector(id);
-    if (element) {
-      const offset = 80; // Header height
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
+    setIsAnimating(false);
+    requestAnimationFrame(() => {
+      setIsAnimating(true);
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+      animationTimeoutRef.current = setTimeout(() => setIsAnimating(false), 1000);
+    });
+    onViewChange(view);
+  }, [onViewChange]);
 
   return (
     <header
@@ -61,34 +78,45 @@ export default function Header() {
 
           {/* Logo */}
           <div
-            className="cursor-pointer flex items-center transition-all duration-300 hover:opacity-80 active:scale-95"
-            onClick={() => handleScrollTo('#inicio')}
+            className={`cursor-pointer flex items-center transition-transform duration-[1000ms] ease-out ${
+              isAnimating ? 'scale-105 rotate-1' : 'scale-100 rotate-0'
+            }`}
+            onClick={() => handleNavigation('inicio')}
           >
             <img
               src={logoPrincipal}
               alt="Creditivoo"
               className="h-8 md:h-10 w-auto object-contain"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
 
           {/* Desktop Nav — Links con línea inferior animada */}
           <nav className="hidden lg:flex items-center gap-7">
-            {menuItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => handleScrollTo(item.href)}
-                className="relative py-2 text-slate-600 font-medium tracking-tight text-sm hover:text-[#00E37C] transition-all duration-300 cursor-pointer after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-[#00E37C] after:rounded-full hover:after:w-full after:transition-all after:duration-300"
-                id={`nav-${item.href.replace('#', '')}`}
-              >
-                {item.name}
-              </button>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = currentView === item.view;
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavigation(item.view)}
+                  className={`relative py-2 font-medium tracking-tight text-sm transition-all duration-300 cursor-pointer after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[2px] after:bg-[#00E37C] after:rounded-full after:transition-all after:duration-300 ${
+                    isActive
+                      ? 'text-[#00E37C] after:w-full'
+                      : 'text-slate-600 hover:text-[#00E37C] after:w-0 hover:after:w-full'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Desktop CTA — Botón Píldora "Glow Magnético" */}
           <div className="hidden lg:flex items-center">
             <button
-              onClick={() => handleScrollTo('#solicitud')}
+              onClick={() => handleNavigation('solicitud')}
               className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-sm px-6 py-2.5 shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 flex items-center gap-2 cursor-pointer"
               id="cta-header-desktop"
             >
@@ -125,8 +153,10 @@ export default function Header() {
             {menuItems.map((item) => (
               <button
                 key={item.name}
-                onClick={() => handleScrollTo(item.href)}
-                className="block w-full text-left px-4 py-3 text-slate-600 hover:bg-[#00E37C]/5 hover:text-[#00E37C] text-[15px] font-medium rounded-xl transition-all duration-200"
+                onClick={() => handleNavigation(item.view)}
+                className={`block w-full text-left px-4 py-3 text-[15px] font-medium rounded-xl transition-all duration-200 ${
+                  currentView === item.view ? 'text-[#00E37C]' : 'text-slate-600 hover:bg-[#00E37C]/5 hover:text-[#00E37C]'
+                }`}
               >
                 {item.name}
               </button>
@@ -134,7 +164,7 @@ export default function Header() {
           </div>
           <div className="px-4 pb-4 pt-2 border-t border-slate-100/80">
             <button
-              onClick={() => handleScrollTo('#solicitud')}
+              onClick={() => handleNavigation('solicitud')}
               className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] active:scale-[0.98] transition-all duration-300 text-[15px] cursor-pointer"
               id="cta-header-mobile"
             >
@@ -148,3 +178,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default memo(Header);

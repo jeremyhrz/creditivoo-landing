@@ -3,58 +3,66 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { Sparkles, ArrowRight, HelpCircle, DollarSign, Calculator, Info } from 'lucide-react';
 
 interface SimulatorProps {
   onSimulateSelect: (price: number, plan: 'basic' | 'plus', productName: string) => void;
 }
 
-export default function Simulator({ onSimulateSelect }: SimulatorProps) {
-  // Preset select triggers
-  const PRESETS = [
-    { name: 'Smart TV Síragon 50"', price: 349, category: 'Televisor' },
-    { name: 'Xiaomi Redmi Note 13', price: 189, category: 'Teléfono' },
-    { name: 'Aire Split 12000 BTU', price: 299, category: 'Electrodoméstico' },
-    { name: 'Laptop ASUS VivoBook', price: 549, category: 'Computación' },
-    { name: 'Nevera Condesa 10' , price: 429, category: 'Línea Blanca' },
-  ];
+const PRESETS = [
+  { name: 'Smart TV Síragon 50"', price: 349, category: 'Televisor' },
+  { name: 'Xiaomi Redmi Note 13', price: 189, category: 'Teléfono' },
+  { name: 'Aire Split 12000 BTU', price: 299, category: 'Electrodoméstico' },
+  { name: 'Laptop ASUS VivoBook', price: 549, category: 'Computación' },
+  { name: 'Nevera Condesa 10' , price: 429, category: 'Línea Blanca' },
+];
 
+function Simulator({ onSimulateSelect }: SimulatorProps) {
   const [selectedPreset, setSelectedPreset] = useState<number>(-1);
   const [productPrice, setProductPrice] = useState<number>(349);
   const [productName, setProductName] = useState<string>('Smart TV Síragon 50"');
   const [selectedPlan, setSelectedPlan] = useState<'basic' | 'plus'>('basic');
 
-  const calculateInitialPayment = (plan: 'basic' | 'plus', totalAmount: number) => {
+  const calculateInitialPayment = useCallback((plan: 'basic' | 'plus', totalAmount: number) => {
     return plan === 'basic' ? Math.round(totalAmount * 0.6) : 0;
-  };
+  }, []);
 
-  const calculateCuotas = (plan: 'basic' | 'plus', totalAmount: number) => {
+  const calculateCuotas = useCallback((plan: 'basic' | 'plus', totalAmount: number) => {
     const initialPayment = calculateInitialPayment(plan, totalAmount);
     const financedAmount = totalAmount - initialPayment;
     return Math.round(financedAmount / 3);
-  };
+  }, [calculateInitialPayment]);
 
-  const handlePresetClick = (idx: number) => {
+  const handlePresetClick = useCallback((idx: number) => {
     setSelectedPreset(idx);
     const preset = PRESETS[idx];
     setProductPrice(preset.price);
     setProductName(preset.name);
-  };
+  }, []);
 
-  const handlePriceChange = (val: number) => {
+  const handlePriceChange = useCallback((val: number) => {
     setProductPrice(val);
     setSelectedPreset(-1); // Remove active preset choice
     setProductName('Producto Personalizado');
-  };
+  }, []);
 
-  const initialPayment = calculateInitialPayment(selectedPlan, productPrice);
-  const monthlyCuota = calculateCuotas(selectedPlan, productPrice);
-  const calculatedFinanced = productPrice - initialPayment;
+  const initialPayment = useMemo(
+    () => calculateInitialPayment(selectedPlan, productPrice),
+    [calculateInitialPayment, selectedPlan, productPrice],
+  );
+  const monthlyCuota = useMemo(
+    () => calculateCuotas(selectedPlan, productPrice),
+    [calculateCuotas, selectedPlan, productPrice],
+  );
+  const calculatedFinanced = useMemo(
+    () => productPrice - initialPayment,
+    [productPrice, initialPayment],
+  );
 
-  const handleApplySimulator = () => {
+  const handleApplySimulator = useCallback(() => {
     onSimulateSelect(productPrice, selectedPlan, productName);
-    
+
     // Smooth scroll to form
     const element = document.querySelector('#solicitud');
     if (element) {
@@ -69,13 +77,13 @@ export default function Simulator({ onSimulateSelect }: SimulatorProps) {
         behavior: 'smooth'
       });
     }
-  };
+  }, [onSimulateSelect, productPrice, selectedPlan, productName]);
 
   return (
     <section id="simulador" className="py-24 bg-slate-50 relative overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#00E37C]/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[clamp(260px,35vw,500px)] h-[clamp(260px,35vw,500px)] rounded-full bg-[#00E37C]/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[clamp(320px,40vw,600px)] h-[clamp(320px,40vw,600px)] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 font-sans">
         
@@ -156,7 +164,7 @@ export default function Simulator({ onSimulateSelect }: SimulatorProps) {
                     step="25"
                     value={productPrice}
                     onChange={(e) => handlePriceChange(Number(e.target.value))}
-                    className="w-full h-2.5 rounded-full bg-slate-200 appearance-none cursor-pointer accent-[#00E37C] shadow-inner"
+                    className="w-full h-2.5 rounded-full bg-slate-200 appearance-none cursor-pointer accent-[#00E37C] shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E37C]/30"
                   />
                   <div className="absolute bottom-0 w-full flex justify-between text-xs font-mono font-medium text-slate-400">
                     <span>$50 min</span>
@@ -246,7 +254,7 @@ export default function Simulator({ onSimulateSelect }: SimulatorProps) {
               {/* Action Button */}
               <button
                 onClick={handleApplySimulator}
-                className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-bold text-lg transition-all duration-300 hover:scale-[1.02] shadow-xl shadow-[#00E37C]/30 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                className="w-full min-h-[44px] py-5 rounded-2xl bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-bold text-lg transition-all duration-300 ease-in-out hover:scale-[1.02] shadow-xl shadow-[#00E37C]/30 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 id="simulator-action-btn"
               >
                 Iniciar Solicitud Instantánea
@@ -267,3 +275,5 @@ export default function Simulator({ onSimulateSelect }: SimulatorProps) {
     </section>
   );
 }
+
+export default memo(Simulator);
