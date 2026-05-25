@@ -1,0 +1,6 @@
+{
+  "name": "Creditivoo",
+  "description": "Sistema de financiamiento exclusivo de IVOO. Llévatelo hoy, págalo a tu ritmo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

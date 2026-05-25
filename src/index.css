@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-creditivoo-green: #00E37C;
+  --color-creditivoo-dark: #004F30;
+  --color-creditivoo-bright: #00FF88;
+  --color-ivoo-navy: #0A1128;
+  --color-ivoo-blue: #001F54;
+  --color-ivoo-deep: #030712;
+  --color-slate-950: #030712;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+  
+  /* Smooth transitions for links and active interactive components */
+  a, button {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
