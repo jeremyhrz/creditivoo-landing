@@ -17,21 +17,21 @@ export default function HowItWorks() {
     {
       number: '02',
       title: 'Conoce tu línea',
-      description: 'Evaluamos tu perfil de forma instantánea y te mostramos tus opciones de financiamiento disponibles.',
+      description: 'Evaluamos tu perfil de forma instantánea y te mostramos tu financiamiento disponible',
       icon: LayoutDashboard,
       color: 'from-cyan-500/20 to-teal-500/20',
     },
     {
       number: '03',
       title: 'Elige tu producto',
-      description: 'Selecciona lo último en tecnología, electrodomésticos o accesorios autorizados dentro del catálogo de IVOO.',
+      description: 'Selecciona lo último en tecnología, electrodomésticos o accesorios autorizados dentro del catálogo o en sucursales de IVOO.',
       icon: ShoppingBag,
       color: 'from-blue-500/20 to-indigo-500/20',
     },
     {
       number: '04',
       title: 'Activa tu plan',
-      description: 'Paga tu monto de inicial estimado de forma rápida o activa las condiciones disponibles según tu perfil.',
+      description: 'Paga el monto de suscripción de forma rápida o activa las condiciones disponibles según tu perfil.',
       icon: CreditCard,
       color: 'from-[#00E37C]/20 to-emerald-500/20',
     },
@@ -54,7 +54,7 @@ export default function HowItWorks() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/5 px-3.5 py-1.5 rounded-full border border-[#00E37C]/15">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             PASO A PASO
           </span>
           <h2 className="font-display text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mt-5">
@@ -76,10 +76,10 @@ export default function HowItWorks() {
               return (
                 <div
                   key={step.number}
-                  className="bg-white border border-slate-200/80 p-6 rounded-2xl relative flex flex-col items-start hover:border-[#00E37C]/30 hover:-translate-y-1.5 transition-all duration-300 shadow-sm"
+                  className="bg-white border border-slate-200/80 p-6 rounded-2xl relative flex flex-col items-start hover:border-[#00E37C]/30 hover:-translate-y-1.5 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.02)]"
                 >
                   {/* Giant Step Number Background */}
-                  <div className="absolute -top-2 right-4 font-display font-black text-7xl text-transparent bg-clip-text bg-gradient-to-b from-[#00E37C]/20 to-emerald-500/5 select-none pointer-events-none">
+                  <div className="absolute -top-2 right-4 font-display font-black text-7xl text-emerald-500/10 select-none pointer-events-none">
                     {step.number}
                   </div>
 
@@ -89,7 +89,7 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Step Meta Info */}
-                  <span className="text-[10px] font-mono tracking-widest text-[#00E37C] font-semibold uppercase mb-1">
+                  <span className="inline-flex items-center text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50 mb-4">
                     Paso {idx + 1}
                   </span>
                   

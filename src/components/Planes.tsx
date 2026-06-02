@@ -59,7 +59,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/10 px-4 py-2 rounded-full border border-[#00E37C]/20 shadow-sm">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             CATÁLOGO DE CONTRATACIÓN
           </span>
           <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight mt-6 leading-tight">
@@ -124,7 +124,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#00E37C]/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00E37C]/10 transition-colors duration-500" />
             
             {/* Floating Badge */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white text-xs font-black tracking-widest uppercase shadow-md shadow-[#00E37C]/30 whitespace-nowrap z-20 flex items-center gap-1.5">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50/60 border border-emerald-100/50 text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 shadow-sm whitespace-nowrap z-20">
               <Sparkles className="w-4 h-4 fill-white" /> RECOMENDADO IVOO
             </div>
 
@@ -146,7 +146,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
               {/* Price visual placeholder */}
               <div className="my-8 pb-8 border-b border-[#00E37C]/10">
                 <span className="text-2xl sm:text-4xl font-extrabold text-[#00AA5B] tracking-tight block">
-                  0% de inicial y 3 cuotas
+                  0% de inicial y 4 cuotas
                 </span>
               </div>
 

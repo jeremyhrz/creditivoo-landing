@@ -200,7 +200,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/5 px-3.5 py-1.5 rounded-full border border-[#00E37C]/15">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             EVALUACIÓN INMEDIATA
           </span>
           <h2 className="font-display text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mt-5">
@@ -248,7 +248,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
                 <h3 className="font-display text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                   ¡Solicitud Recibida!
                 </h3>
-                <span className="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-[#008A4B] bg-[#00E37C]/10 border border-[#00E37C]/25 px-3 py-1 rounded-full">
+                <span className="inline-block text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 border border-emerald-100/50 px-3 py-1 rounded-full">
                   Pronto te estaremos informando los próximos pasos
                 </span>
                 <p className="text-slate-600 text-sm sm:text-base max-w-lg mx-auto">

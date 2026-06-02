@@ -16,7 +16,7 @@ export default function IvooPoints() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/5 px-3.5 py-1.5 rounded-full border border-[#00E37C]/15">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             PUNTUACIÓN Y REPLIEGUES
           </span>
           <h2 className="font-display text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mt-5">

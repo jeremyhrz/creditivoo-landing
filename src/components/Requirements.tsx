@@ -28,7 +28,7 @@ export default function Requirements() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/5 px-3.5 py-1.5 rounded-full border border-[#00E37C]/15">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             CONTRATACIONES REQUISITOS
           </span>
           <h2 className="font-display text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mt-5">
@@ -72,7 +72,7 @@ export default function Requirements() {
           {/* Right Column: Speed & Digital Promo graphic panel */}
           <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#00E37C]/30 transition-all shadow-sm">
             <div>
-              <span className="text-[10px] font-mono tracking-widest text-[#00E37C] font-semibold bg-[#00E37C]/10 px-2.5 py-1 rounded inline-block uppercase mb-4">
+              <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50 mb-4 inline-block">
                 100% DIGITAL Sencillo
               </span>
               
@@ -110,7 +110,7 @@ export default function Requirements() {
 
             <div className="pt-6 mt-8 border-t border-slate-150 flex items-center gap-2.5 text-[#00AA5B]">
               <Award className="w-5 h-5 fill-[#00E37C]/10" />
-              <span className="text-xs font-semibold uppercase tracking-wider font-mono">
+              <span className="text-xs font-sans font-semibold uppercase tracking-wider text-emerald-500">
                 RESPALDADO POR EL ECOSISTEMA IVOO
               </span>
             </div>

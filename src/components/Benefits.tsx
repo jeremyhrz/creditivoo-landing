@@ -61,7 +61,7 @@ export default function Benefits() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/5 px-3.5 py-1.5 rounded-full border border-[#00E37C]/15">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50">
             CONSTRUYE TU PERFIL
           </span>
           <h2 className="font-display text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mt-5">
@@ -95,7 +95,7 @@ export default function Benefits() {
                     <div className="w-12 h-12 rounded-full bg-[#00E37C]/10 text-emerald-600 flex items-center justify-center transition-all duration-300">
                       <IconComp className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono tracking-wider text-slate-500 font-bold bg-slate-50 group-hover:bg-[#00E37C]/10 group-hover:text-[#008A4B] px-3 py-1.5 rounded-full transition-colors border border-slate-100 group-hover:border-[#00E37C]/20">
+                    <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full transition-colors border border-emerald-100/50 group-hover:bg-emerald-100/60 group-hover:text-emerald-700">
                       {benefit.badge}
                     </span>
                   </div>

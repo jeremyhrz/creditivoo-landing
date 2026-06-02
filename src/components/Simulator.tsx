@@ -21,12 +21,12 @@ const PRESETS = [
 
 function Simulator({ onSimulateSelect }: SimulatorProps) {
   const [selectedPreset, setSelectedPreset] = useState<number>(-1);
-  const [productPrice, setProductPrice] = useState<number>(349);
+  const [productPrice, setProductPrice] = useState<number>(100);
   const [productName, setProductName] = useState<string>('Smart TV Síragon 50"');
-  const [selectedPlan, setSelectedPlan] = useState<'basic' | 'plus'>('basic');
+  const selectedPlan: 'plus' = 'plus';
 
-  const calculateInitialPayment = useCallback((plan: 'basic' | 'plus', totalAmount: number) => {
-    return plan === 'basic' ? Math.round(totalAmount * 0.6) : 0;
+  const calculateInitialPayment = useCallback((_plan: 'basic' | 'plus', totalAmount: number) => {
+    return 0;
   }, []);
 
   const calculateCuotas = useCallback((plan: 'basic' | 'plus', totalAmount: number) => {
@@ -93,7 +93,7 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-mono font-extrabold tracking-[0.25em] text-[#00E37C] uppercase bg-[#00E37C]/10 px-4 py-2 rounded-full border border-[#00E37C]/20 shadow-[0_0_15px_rgba(0,227,124,0.2)]">
+          <span className="text-[11px] font-sans font-semibold tracking-wider uppercase text-emerald-500 bg-emerald-50/60 px-3 py-1 rounded-full border border-emerald-100/50 shadow-sm">
             SIMULADOR INTELIGENTE
           </span>
           <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight mt-6 leading-tight">
@@ -115,35 +115,20 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
             {/* LEFT COLUMN: Inputs & Controls */}
             <div className="lg:col-span-6 flex flex-col space-y-10">
               
-              {/* 1. Plan Selector (Pill Tabs) */}
-              <div>
-                <label className="text-sm font-semibold text-slate-700 tracking-wide block mb-4 flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#00E37C]/10 text-[#00E37C] flex items-center justify-center text-xs font-bold">1</span>
-                  Selecciona tu Plan
-                </label>
-                <div className="flex bg-slate-100 p-1.5 rounded-2xl relative">
-                  <button
-                    onClick={() => setSelectedPlan('basic')}
-                    className={`flex-1 py-3.5 px-4 rounded-xl text-sm font-bold transition-all duration-300 z-10 ${
-                      selectedPlan === 'basic'
-                        ? 'bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white shadow-lg shadow-[#00E37C]/30 scale-[1.02]'
-                        : 'text-slate-600 hover:bg-slate-200/70'
-                    }`}
-                  >
-                    Plan Básico
-                  </button>
-                  <button
-                    onClick={() => setSelectedPlan('plus')}
-                    className={`flex-1 py-3.5 px-4 rounded-xl text-sm font-bold transition-all duration-300 z-10 flex items-center justify-center gap-2 ${
-                      selectedPlan === 'plus'
-                        ? 'bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white shadow-lg shadow-[#00E37C]/30 scale-[1.02]'
-                        : 'text-slate-600 hover:bg-slate-200/70'
-                    }`}
-                  >
-                    Plan Plus
-                    <span className={`text-[9px] uppercase px-2 py-0.5 rounded-full tracking-wider ${selectedPlan === 'plus' ? 'bg-white/20 text-white' : 'bg-[#00E37C]/20 text-[#00E37C]'}`}>VIP</span>
-                  </button>
+              {/* 1. Plan Información */}
+              <div className="rounded-[1.5rem] border border-slate-200/70 bg-slate-50/80 p-5">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-700 tracking-wide uppercase">Plan Activo</p>
+                    <h4 className="mt-2 text-2xl font-extrabold text-slate-900">Plan Plus</h4>
+                  </div>
+                  <span className="inline-flex items-center rounded-full bg-[#00E37C]/10 px-3 py-1 text-xs font-semibold uppercase text-[#0f5132]">
+                    VIP
+                  </span>
                 </div>
+                <p className="mt-3 text-sm text-slate-500">
+                  Has seleccionado el Plan Plus. El simulador utiliza automáticamente las condiciones VIP sin opción de cambio.
+                </p>
               </div>
 
               {/* 2. Product Price Slider */}
@@ -163,16 +148,16 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
                   <input
                     id="price-slider"
                     type="range"
-                    min="50"
-                    max="2000"
+                    min="100"
+                    max="1000"
                     step="25"
                     value={productPrice}
                     onChange={(e) => handlePriceChange(Number(e.target.value))}
                     className="w-full h-2.5 rounded-full bg-slate-200 appearance-none cursor-pointer accent-[#00E37C] shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E37C]/30"
                   />
                   <div className="absolute bottom-0 w-full flex justify-between text-xs font-mono font-medium text-slate-400">
-                    <span>$50 min</span>
-                    <span>$2,000 max</span>
+                    <span>$100 min</span>
+                    <span>$1000 max</span>
                   </div>
                 </div>
               </div>
@@ -250,9 +235,15 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
               </div>
 
               {/* Informative Row */}
-              <div className="flex justify-between items-center text-sm mb-10 py-3 border-y border-slate-200/60">
-                <span className="text-slate-500 font-medium">Monto Financiado</span>
-                <span className="font-mono font-bold text-slate-800">${calculatedFinanced} USD</span>
+              <div className="space-y-3 mb-10">
+                <div className="flex justify-between items-center text-sm py-3 border-b border-slate-200/60">
+                  <span className="text-slate-500 font-medium">Suscripción</span>
+                  <span className="font-mono font-bold text-slate-800">$150</span>
+                </div>
+                <div className="flex justify-between items-center text-sm py-3 border-t border-slate-200/60">
+                  <span className="text-slate-500 font-medium">Monto Financiado</span>
+                  <span className="font-mono font-bold text-slate-800">${calculatedFinanced} USD</span>
+                </div>
               </div>
 
               {/* Action Button */}
