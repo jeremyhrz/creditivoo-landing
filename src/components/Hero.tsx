@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useCallback, memo } from 'react';
+import { useCallback, memo, type MouseEvent } from 'react';
 import {
   ArrowRight,
   Calculator,
@@ -26,19 +26,19 @@ import MockupPantallaApp from '../assets/mockup-pantalla-app.png';
 import BannerPlanPlus from '../assets/banner-plan-plus.gif';
 
 function Hero() {
-  const handleScrollTo = useCallback((id: string) => {
-    const element = document.querySelector(id);
+  const handleScrollToForm = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const element = document.getElementById('solicitud-form');
     if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+  const handleScrollToSimulator = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const element = document.getElementById('simulador');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   }, []);
 
@@ -75,10 +75,8 @@ function Hero() {
               Creditivoo
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E37C] to-emerald-700">
-                Financia tus deseos
+                llevátelo hoy
               </span>
-              <br />
-              tecnológicos hoy.
             </h1>
 
             {/* Subtexto elegante */}
@@ -109,7 +107,7 @@ function Hero() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-1">
               <button
-                onClick={() => handleScrollTo('#solicitud')}
+                onClick={handleScrollToForm}
                 className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-base sm:px-8 px-5 py-4 min-h-[44px] shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 ease-in-out flex items-center justify-center gap-2.5 cursor-pointer"
                 id="hero-primary-cta"
               >
@@ -118,7 +116,7 @@ function Hero() {
               </button>
 
               <button
-                onClick={() => handleScrollTo('#simulador')}
+                onClick={handleScrollToSimulator}
                 className="rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base sm:px-8 px-5 py-4 min-h-[44px] border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-300 ease-in-out flex items-center justify-center gap-2.5 cursor-pointer"
                 id="hero-secondary-cta"
               >

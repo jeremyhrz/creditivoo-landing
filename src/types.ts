@@ -36,7 +36,7 @@ export interface ApplicationFormData {
   productInterestId: string;
   customProduct?: string;
   estimatedPrice: number;
-  selectedPlan: 'basic' | 'plus';
+  selectedPlan: 'plus'; // SOLO 'plus' es válido ahora
   acceptTerms: boolean;
   acceptDataTreatment: boolean;
 }

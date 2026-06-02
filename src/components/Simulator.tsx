@@ -7,7 +7,7 @@ import { useState, useCallback, useMemo, memo } from 'react';
 import { Sparkles, ArrowRight, HelpCircle, DollarSign, Calculator, Info } from 'lucide-react';
 
 interface SimulatorProps {
-  onSimulateSelect: (price: number, plan: 'basic' | 'plus', productName: string) => void;
+  onSimulateSelect: (price: number, plan: 'plus', productName: string) => void;
 }
 
 const PRESETS = [

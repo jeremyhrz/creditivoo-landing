@@ -30,7 +30,7 @@ export default function FAQ() {
     },
     {
       q: '¿Qué son los IVOOPoints?',
-      a: 'Son puntos asociados a tu comportamiento e historial de pagos dentro de Creditivoo. Sirven de indicador principal para desbloquear condiciones preferenciales (tales como inicial de 0%).',
+      a: 'Son puntos asociados a tu comportamiento e historial de pagos dentro de Creditivoo. Sirven de indicador principal para desbloquear condiciones preferenciales.',
     },
     {
       q: '¿Puedo usar Creditivoo con promociones?',

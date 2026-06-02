@@ -31,7 +31,7 @@ export default function App() {
   // Sync state between Simulator, Planes and ApplicationForm
   const [simulatorPrefill, setSimulatorPrefill] = useState<{
     price?: number;
-    plan: 'basic' | 'plus';
+    plan: 'plus';
     productName?: string;
   } | null>(null);
 
@@ -40,7 +40,7 @@ export default function App() {
   const handleSimulateSelect = useCallback(
     (
       price: number | undefined,
-      plan: 'basic' | 'plus',
+      plan: 'plus',
       productName: string | undefined,
     ) => {
       setSimulatorPrefill({ price, plan, productName });

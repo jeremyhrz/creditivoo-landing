@@ -8,12 +8,6 @@ import { Coins, CalendarRange, TrendingUp, Trophy, Tag, Wrench, ShieldCheck, Sho
 export default function Benefits() {
   const benefitCards = [
     {
-      title: 'Inicial flexible',
-      description: 'Elige el porcentaje de inicial que mejor se adapte a tu presupuesto en el momento de la compra.',
-      icon: Coins,
-      badge: 'Flexible'
-    },
-    {
       title: 'Pago en cuotas',
       description: 'Organiza tus pagos de manera cómoda en cuotas mensuales fijas, claras y fáciles de entender.',
       icon: CalendarRange,

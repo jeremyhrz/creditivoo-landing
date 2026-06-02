@@ -36,7 +36,7 @@ export default function Requirements() {
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-[#00E37C] to-[#00FF88] mx-auto my-6 rounded-full" />
           <p className="text-slate-600 text-lg">
-            Nuestros requisitos están simplificados al máximo nivel posible. Olvídate de los trámites bancarios burocráticos y las carpetas de papeles.
+            Nuestros requisitos están simplificados al máximo posible. Olvídate de los trámites burocráticos y las carpetas de papeles.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function Requirements() {
               </span>
               
               <h3 className="font-display text-2xl font-black text-slate-900 tracking-tight leading-tight mb-4">
-                Sin carpeta, sin banco y sin complicaciones.
+                Sin carpeta y sin complicaciones.
               </h3>
               
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
