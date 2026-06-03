@@ -11,18 +11,19 @@ interface SimulatorProps {
 }
 
 const PRESETS = [
-  { name: 'Smart TV Síragon 50"', price: 349, category: 'Televisor' },
-  { name: 'Xiaomi Redmi Note 13', price: 189, category: 'Teléfono' },
-  { name: 'Aire Split 12000 BTU', price: 299, category: 'Electrodoméstico' },
-  { name: 'Mini UPS Nuwe 10000mAh NW-32UE', price: 549, category: 'Computación' },
-  { name: 'Nevera Síragon NV-3100 248L / 9Cu.FT', price: 429, category: 'Línea Blanca' },
+  { name: 'Nevera Síragon TM-7050 478LT', price: 920, category: 'Línea Blanca' },
+  { name: 'Aire Acondicionado Soneview 24000BTU ASV24-5000', price: 600, category: 'Electrodoméstico' },
+  { name: 'Congelador Horizontal Siragon 199L', price: 400, category: 'Línea Blanca' },
+  { name: '58" Google TV UHD 4K Síragon', price: 430, category: 'Televisor' },
+  { name: 'UPS Nuwe 2000VA/1200W NW-20UP', price: 190, category: 'Computación' },
+  { name: 'Scooter Xiaomi Electric 5 700W', price: 750, category: 'Movilidad' },
   { name: 'Otros productos', price: 0, category: 'Otros' },
 ];
 
 function Simulator({ onSimulateSelect }: SimulatorProps) {
   const [selectedPreset, setSelectedPreset] = useState<number>(-1);
   const [productPrice, setProductPrice] = useState<number>(100);
-  const [productName, setProductName] = useState<string>('Smart TV Síragon 50"');
+  const [productName, setProductName] = useState<string>('Nevera Síragon TM-7050 478LT');
   const selectedPlan: 'plus' = 'plus';
 
   const calculateInitialPayment = useCallback((_plan: 'plus', totalAmount: number) => {
@@ -101,7 +102,7 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
             <div className="lg:col-span-6 flex flex-col space-y-10">
               
               {/* 1. Plan Información */}
-              <div className="rounded-[1.5rem] border border-slate-200/70 bg-slate-50/80 p-5">
+              <div className="rounded-[1.5rem] border border-slate-200/70 bg-slate-50/80 p-5 h-auto">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm font-semibold text-slate-700 tracking-wide uppercase">Plan Activo</p>
@@ -111,8 +112,8 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
                     VIP
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-slate-500">
-                  Has seleccionado el Plan Plus. El simulador utiliza automáticamente las condiciones VIP sin opción de cambio.
+                <p className="mt-3 text-sm text-slate-500 leading-relaxed block w-full">
+                  El simulador utiliza automáticamente las condiciones VIP sin opción de cambio.
                 </p>
               </div>
 
@@ -194,9 +195,11 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
                     </span>
                   </div>
                   {selectedPlan === 'plus' && (
-                    <span className="inline-block mt-2 text-[10px] font-bold text-[#00E37C] bg-[#00E37C]/10 px-2 py-0.5 rounded-full">
-                      BENEFICIO VIP APLICADO
-                    </span>
+                    <div className="w-full flex justify-center mt-3 relative z-10">
+                      <span className="inline-flex items-center justify-center text-center rounded-full px-2.5 py-1 text-[11px] font-semibold leading-none w-full max-w-max block text-[#00E37C] bg-[#00E37C]/10">
+                        BENEFICIO VIP APLICADO
+                      </span>
+                    </div>
                   )}
                 </div>
 
@@ -244,7 +247,7 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
               <div className="flex items-start gap-2 mt-4 text-xs text-slate-500 leading-tight">
                 <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
                 <p>
-                  Esta simulación es referencial. La aprobación final, el límite de crédito y las condiciones exactas dependen de la evaluación crediticia de Creditivoo.
+                  Esta simulación es referencial. La aprobación final, la línea de compra y las condiciones exactas dependen de la evaluación de Creditivoo.
                 </p>
               </div>
 
