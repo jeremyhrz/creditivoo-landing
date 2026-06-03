@@ -37,6 +37,11 @@ export default function App() {
 
   const [currentView, setCurrentView] = useState<AppView>('inicio');
 
+  const handleViewChange = useCallback((view: AppView) => {
+    setCurrentView(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   const handleSimulateSelect = useCallback(
     (
       price: number | undefined,
@@ -44,20 +49,16 @@ export default function App() {
       productName: string | undefined,
     ) => {
       setSimulatorPrefill({ price, plan, productName });
+      handleViewChange('solicitud');
     },
-    [],
+    [handleViewChange],
   );
-
-  const handleViewChange = useCallback((view: AppView) => {
-    setCurrentView(view);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
 
   const viewMap = useMemo(
     () => ({
       inicio: (
         <>
-          <Hero />
+          <Hero onViewChange={handleViewChange} />
           <Simulator onSimulateSelect={handleSimulateSelect} />
         </>
       ),
@@ -69,7 +70,7 @@ export default function App() {
       preguntas: <FAQ />,
       solicitud: <ApplicationForm prefillValues={simulatorPrefill} />,
     }),
-    [handleSimulateSelect, simulatorPrefill],
+    [handleSimulateSelect, handleViewChange, simulatorPrefill],
   );
 
   return (

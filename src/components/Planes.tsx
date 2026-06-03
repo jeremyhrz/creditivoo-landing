@@ -6,37 +6,15 @@
 import { Check, ShieldCheck, Sparkles, HelpCircle } from 'lucide-react';
 
 interface PlanesProps {
-  onPlanSelect?: (plan: 'basic' | 'plus') => void;
+  onPlanSelect?: (plan: 'plus') => void;
 }
 
 export default function Planes({ onPlanSelect }: PlanesProps) {
-  const handleScrollToForm = (plan: 'basic' | 'plus') => {
+  const handleScrollToForm = (plan: 'plus') => {
     if (onPlanSelect) {
       onPlanSelect(plan);
     }
-    const element = document.querySelector('#solicitud');
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
   };
-
-  const basicBenefits = [
-    'Línea de crédito según evaluación.',
-    'Inicial flexible.',
-    'Pago en 3 cuotas.',
-    'Acumulación de IVOOPoints.',
-    'Acceso a productos seleccionados.',
-    'Sin costo de membresía.',
-  ];
 
   const plusBenefits = [
     'Mayor flexibilidad según tu perfil.',
@@ -63,62 +41,16 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
             CATÁLOGO DE CONTRATACIÓN
           </span>
           <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight mt-6 leading-tight">
-            Nuestros Planes
+            Nuestro Plan
           </h2>
           <p className="text-slate-500 text-lg md:text-xl mt-6">
-            Elige el plan perfecto para ti y desbloquea el acceso inteligente a los mejores productos de tecnología y electrodomésticos.
+            Desbloquea el acceso inteligente a los mejores productos de tecnología y electrodomésticos con el Plan Plus VIP.
           </p>
         </div>
 
-        {/* Pricing Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto items-stretch">
-          
-          {/* PLAN BÁSICO */}
-          <div className="rounded-[2rem] bg-white border border-slate-200 p-8 sm:p-10 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-300 relative">
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <div>
-                  <h3 className="font-display text-3xl font-bold text-slate-900 tracking-tight">
-                    Plan Básico
-                  </h3>
-                  <p className="text-sm text-slate-500 mt-2 font-medium">
-                    La opción ideal para compras planificadas.
-                  </p>
-                </div>
-              </div>
-
-              {/* Price visual placeholder */}
-              <div className="my-8 pb-8 border-b border-slate-100">
-                <span className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight block">
-                  60% de inicial y 3 cuotas
-                </span>
-              </div>
-
-              {/* Benefit checks */}
-              <ul className="space-y-4 my-8">
-                {basicBenefits.map((benefit, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-slate-600 py-0.5">
-                    <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0 border border-slate-200">
-                      <Check className="w-3.5 h-3.5 text-slate-500" />
-                    </div>
-                    <span className="text-base">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="pt-8">
-              <button
-                onClick={() => handleScrollToForm('basic')}
-                className="w-full py-4 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer text-center text-lg shadow-sm"
-              >
-                Elegir Plan Básico
-              </button>
-            </div>
-          </div>
-
-          {/* PLAN PLUS (Imán de Conversión) */}
-          <div className="rounded-[2rem] bg-white border-2 border-[#00E37C]/40 p-8 sm:p-10 flex flex-col justify-between hover:-translate-y-2 shadow-[0_30px_60px_-15px_rgba(0,227,124,0.15)] transition-all duration-300 relative lg:-mt-6 lg:mb-[-1.5rem] z-10 overflow-visible group">
+        {/* Plan Layout — Solo Plan Plus */}
+        <div className="flex justify-center max-w-xl mx-auto">
+          <div className="rounded-[2rem] bg-white border-2 border-[#00E37C]/40 p-8 sm:p-10 flex flex-col justify-between hover:-translate-y-2 shadow-[0_30px_60px_-15px_rgba(0,227,124,0.15)] transition-all duration-300 relative z-10 overflow-visible group w-full">
             
             {/* Interior Glow Effect */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#00E37C]/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00E37C]/10 transition-colors duration-500" />
@@ -172,7 +104,6 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
               </button>
             </div>
           </div>
-
         </div>
 
         {/* Brand Disclaimer Notice */}

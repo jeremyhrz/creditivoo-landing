@@ -56,31 +56,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
     'Carúpano',
   ];
 
-  // Store locations mapping for city selector
-  const STORE_LOCATIONS: Record<string, string[]> = {
-    'Naguanagua': ['Naguanagua'],
-    'Valencia': ['Valencia Av. Bolívar', 'Valencia Av. Lara (Feria)'],
-    'Caracas': ['Caracas Plaza Venezuela', 'Caracas Sambil La Candelaria', 'Caracas C.C. Líder', 'Caracas Outlet'],
-    'Mérida': ['Mérida Av. Las Américas'],
-    'El Vigía': ['El Vigía'],
-    'Lechería': ['Lechería'],
-    'El Tigre': ['El Tigre'],
-    'Puerto La Cruz': ['Puerto La Cruz'],
-    'Maracay': ['Maracay Los Aviadores', 'Maracay Las Delicias', 'C.C Galeria Plaza'],
-    'Acarigua': ['Acarigua'],
-    'Barinas': ['Barinas'],
-    'Maracaibo': ['Maracaibo Las Delicias', 'Maracaibo Centro', 'San Francisco', 'Ciudad Ojeda', 'Cabimas'],
-    'San Cristóbal': ['San Cristóbal'],
-    'Barquisimeto': ['Barquisimeto Av. Lara', 'Sambil Barquisimeto', 'Barquisimeto Centro'],
-    'Valera': ['Valera'],
-    'Puerto Ordaz': ['Puerto Ordaz'],
-    'San Félix': ['San Félix'],
-    'Ciudad Bolivar': ['Ciudad Bolivar'],
-    'Maturín': ['Maturín'],
-    'Porlamar': ['Porlamar C.C. La Vela', 'Porlamar C.C. Las Palmas'],
-    'Cumaná': ['Cumaná'],
-    'Carúpano': ['Carúpano'],
-  };
+
 
   const PRODUCTS_CATALOG = [
     { id: 'phone-android', name: 'Teléfono Inteligente (Android)' },
@@ -98,7 +74,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
     idNumber: '',
     phone: '',
     email: '',
-    city: 'Naguanagua',
+    city: '',
     store: 'Naguanagua',
     productInterestId: 'phone-android',
     customProduct: '',
@@ -132,28 +108,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
     }
   }, [prefillValues]);
 
-  // Adjust active store choices automatically if city is updated
-  const handleCityChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    try {
-      const city = e.target.value;
-      // Get stores for selected city
-      const storesInCity = STORE_LOCATIONS[city] || BRANCH_OPTIONS;
-      const currentStore = formData.store;
-      
-      // Verificar si la tienda actual está disponible en la nueva ciudad
-      const isCurrentStoreValid = storesInCity.includes(currentStore);
-      const newStore = isCurrentStoreValid ? currentStore : (storesInCity[0] || BRANCH_OPTIONS[0]);
-      
-      setFormData((prev) => ({
-        ...prev,
-        city: city,
-        store: newStore,
-      }));
-    } catch (error) {
-      console.error('Error en handleCityChange:', error);
-      // No hacer nada para evitar crasheo
-    }
-  }, [formData.store]);
+
 
   const handleInputChange = useCallback((
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -257,7 +212,7 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
         idNumber: '',
         phone: '',
         email: '',
-        city: 'Naguanagua',
+        city: '',
         store: 'Naguanagua',
         productInterestId: 'phone-android',
         customProduct: '',
@@ -540,45 +495,24 @@ export default function ApplicationForm({ prefillValues }: ApplicationFormProps)
                   />
                 </div>
 
-                {/* Grid block Group 4: City and preferring branch */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 font-sans">
-                  <div>
-                    <label htmlFor="city-select" className="block text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
-                      Ciudad de Residencia *
-                    </label>
-                    <select
-                      id="city-select"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleCityChange}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 text-sm focus:border-[#00E37C] focus:ring-1 focus:ring-[#00E37C] outline-none transition-all"
-                    >
-                      {Object.keys(STORE_LOCATIONS).map((city) => (
-                        <option key={city} value={city} className="text-slate-800">
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="store-select" className="block text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
-                      Sucursal IVOO de preferencia *
-                    </label>
-                    <select
-                      id="store-select"
-                      name="store"
-                      value={formData.store}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 text-sm focus:border-[#00E37C] focus:ring-1 focus:ring-[#00E37C] outline-none transition-all"
-                    >
-                      {BRANCH_OPTIONS.map((branch) => (
-                        <option key={branch} value={branch} className="text-slate-800">
-                          {branch}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                {/* Sucursal IVOO */}
+                <div className="font-sans">
+                  <label htmlFor="store-select" className="block text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
+                    Sucursal IVOO de preferencia *
+                  </label>
+                  <select
+                    id="store-select"
+                    name="store"
+                    value={formData.store}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 text-sm focus:border-[#00E37C] focus:ring-1 focus:ring-[#00E37C] outline-none transition-all"
+                  >
+                    {BRANCH_OPTIONS.map((branch) => (
+                      <option key={branch} value={branch} className="text-slate-800">
+                        {branch}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Grid block Group 5: Product category and estimated Price */}

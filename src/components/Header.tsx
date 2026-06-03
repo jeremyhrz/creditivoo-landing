@@ -64,13 +64,11 @@ function Header({ currentView, onViewChange }: HeaderProps) {
     onViewChange(view);
   }, [onViewChange]);
 
-  const handleScrollToForm = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+  const handleGoToForm = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const element = document.getElementById('solicitud-form');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
+    setIsOpen(false);
+    onViewChange('solicitud');
+  }, [onViewChange]);
 
   return (
     <header
@@ -123,7 +121,7 @@ function Header({ currentView, onViewChange }: HeaderProps) {
           {/* Desktop CTA — Botón Píldora "Glow Magnético" */}
           <div className="hidden lg:flex items-center">
             <button
-              onClick={(event) => handleScrollToForm(event)}
+              onClick={(event) => handleGoToForm(event)}
               className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-sm px-6 py-2.5 shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 flex items-center gap-2 cursor-pointer"
               id="cta-header-desktop"
             >
@@ -171,7 +169,7 @@ function Header({ currentView, onViewChange }: HeaderProps) {
           </div>
           <div className="px-4 pb-4 pt-2 border-t border-slate-100/80">
             <button
-              onClick={(event) => handleScrollToForm(event)}
+              onClick={(event) => handleGoToForm(event)}
               className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] active:scale-[0.98] transition-all duration-300 text-[15px] cursor-pointer"
               id="cta-header-mobile"
             >

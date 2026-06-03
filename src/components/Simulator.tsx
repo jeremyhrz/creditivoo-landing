@@ -25,14 +25,14 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
   const [productName, setProductName] = useState<string>('Smart TV Síragon 50"');
   const selectedPlan: 'plus' = 'plus';
 
-  const calculateInitialPayment = useCallback((_plan: 'basic' | 'plus', totalAmount: number) => {
+  const calculateInitialPayment = useCallback((_plan: 'plus', totalAmount: number) => {
     return 0;
   }, []);
 
-  const calculateCuotas = useCallback((plan: 'basic' | 'plus', totalAmount: number) => {
+  const calculateCuotas = useCallback((plan: 'plus', totalAmount: number) => {
     const initialPayment = calculateInitialPayment(plan, totalAmount);
     const financedAmount = totalAmount - initialPayment;
-    return Math.round(financedAmount / 3);
+    return Math.round(financedAmount / 4); // 4 cuotas quincenales
   }, [calculateInitialPayment]);
 
   const handlePresetClick = useCallback((idx: number) => {
@@ -66,21 +66,6 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
 
   const handleApplySimulator = useCallback(() => {
     onSimulateSelect(productPrice, selectedPlan, productName);
-
-    // Smooth scroll to form
-    const element = document.querySelector('#solicitud');
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
   }, [onSimulateSelect, productPrice, selectedPlan, productName]);
 
   return (
@@ -219,7 +204,7 @@ function Simulator({ onSimulateSelect }: SimulatorProps) {
                 <div className="bg-gradient-to-br from-[#00E37C]/10 to-emerald-50 p-6 rounded-2xl border border-[#00E37C]/30 shadow-sm relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[#00E37C]/20 rounded-full blur-2xl" />
                   <span className="text-xs font-semibold text-emerald-800 uppercase tracking-wide block mb-2 relative z-10">
-                    Cuota Mensual (3 Meses)
+                    Cuota Quincenal (4 Cuotas)
                   </span>
                   <div className="flex items-start gap-1 relative z-10">
                     <span className="text-emerald-600 font-medium text-2xl mt-1">$</span>

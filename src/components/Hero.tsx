@@ -21,18 +21,20 @@ import {
   Scan,
   MoreHorizontal
 } from 'lucide-react';
+import type { AppView } from '../App';
 
 import MockupPantallaApp from '../assets/mockup-pantalla-app.png';
 import BannerPlanPlus from '../assets/banner-plan-plus.gif';
 
-function Hero() {
-  const handleScrollToForm = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+interface HeroProps {
+  onViewChange: (view: AppView) => void;
+}
+
+function Hero({ onViewChange }: HeroProps) {
+  const handleGoToForm = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const element = document.getElementById('solicitud-form');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
+    onViewChange('solicitud');
+  }, [onViewChange]);
 
   const handleScrollToSimulator = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -75,7 +77,7 @@ function Hero() {
               Creditivoo
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E37C] to-emerald-700">
-                llevátelo hoy
+                llévatelo hoy
               </span>
             </h1>
 
@@ -107,7 +109,7 @@ function Hero() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-1">
               <button
-                onClick={handleScrollToForm}
+                onClick={handleGoToForm}
                 className="rounded-full bg-gradient-to-r from-[#00E37C] to-emerald-500 text-white font-semibold text-base sm:px-8 px-5 py-4 min-h-[44px] shadow-[0_4px_14px_0_rgba(0,227,124,0.3)] hover:shadow-[0_6px_20px_rgba(0,227,124,0.4)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 ease-in-out flex items-center justify-center gap-2.5 cursor-pointer"
                 id="hero-primary-cta"
               >
