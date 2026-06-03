@@ -19,7 +19,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
   const plusBenefits = [
     'Mayor flexibilidad según tu perfil.',
     'Posibilidad de inicial de 0%.',
-    'Aumento progresivo de línea de crédito.',
+    'Aumento progresivo de línea de compra.',
     'Multiplicador de IVOOPoints.',
     'Cashback o descuentos promocionales.',
     'Días de pago más flexibles.',
@@ -110,7 +110,7 @@ export default function Planes({ onPlanSelect }: PlanesProps) {
         <div className="max-w-3xl mx-auto mt-20 p-5 rounded-2xl bg-slate-50 border border-slate-100 flex gap-4 text-left shadow-sm">
           <HelpCircle className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
           <p className="text-sm text-slate-500 leading-relaxed">
-            Los montos, beneficios y condiciones exactas están sujetos a evaluación crediticia, perfil del cliente y políticas vigentes de la plataforma. La información mostrada es netamente referencial.
+            Los montos, beneficios y condiciones exactas están sujetos a evaluación, perfil del cliente y políticas vigentes de la plataforma. La información mostrada es netamente referencial.
           </p>
         </div>
 

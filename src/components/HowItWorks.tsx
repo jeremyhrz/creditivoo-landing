@@ -17,7 +17,7 @@ export default function HowItWorks() {
     {
       number: '02',
       title: 'Conoce tu línea',
-      description: 'Evaluamos tu perfil de forma instantánea y te mostramos tu financiamiento disponible',
+      description: 'Evaluamos tu perfil de forma instantánea y te mostramos tu línea disponible',
       icon: LayoutDashboard,
       color: 'from-cyan-500/20 to-teal-500/20',
     },
